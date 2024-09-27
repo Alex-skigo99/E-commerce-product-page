@@ -1,0 +1,106 @@
+:root {
+  --primary-color: #ff7d1a;
+  --secondary-color: #838181;
+  font-family: "Kumbh Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-variation-settings: "YOPQ" 300;
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+}
+
+html {
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  /* place-items: center; */
+  min-width: 375px;
+  max-width: 1000px;
+  margin: 0 auto;
+  /* min-height: 100vh; */
+}
+
+/* * {
+  border: 1px solid gainsboro;
+} */
+
+#root {
+  width: 100%;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+
+  a:hover {
+    color: #747bff;
+  }
+
+  button {
+    background-color: #f9f9f9;
+  }
+}
+
+.main-font {
+  font-family: "Kumbh Sans", sans-serif;
+}
+
+.color-primary {
+  color: var(--primary-color);
+}
+
+.color-secondary {
+  color: var(--secondary-color);
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.border {
+  border: 3px solid var(--primary-color);
+}
+
+.round {
+  border-radius: 50%;
+}
+
+.border-hover:hover {
+  border: 3px solid var(--primary-color);
+}
+
+.thumbnail {
+  width: 100%;
+  border-radius: 10px;
+  cursor: pointer;
+  object-fit: cover;
+}
+
+.thumbnail:hover {
+  opacity: 0.5;
+}
+
+.actual_price {
+  margin: 10px 0;
+}
+
+.discount {
+  color: var(--primary-color);
+  background-color: #ffede0;
+  border-radius: 5px;
+  padding: 5px;
+  margin: 0 0 0 20px;
+}
+
+.full_price {
+  text-decoration: line-through;
+  color: #787878;
+  margin-top: 0;
+}

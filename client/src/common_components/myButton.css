@@ -1,0 +1,19 @@
+.myButton {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 15px;
+    margin: 0 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.myButton:hover {
+    opacity: 0.8;
+    filter: drop-shadow(0 0 0.5rem #fca06b);
+}
