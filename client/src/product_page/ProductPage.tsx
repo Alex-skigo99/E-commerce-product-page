@@ -1,6 +1,9 @@
+import { useState } from "react";
 import { ItemType } from "../types";
 import ItemPhotoGallery from "./ItemPhotoGallery";
 import ProductCard from "./ProductCard";
+import Modal from "@mui/material/Modal";
+import { Box } from "@mui/material";
 
 const ProductPage = () => {
     const item: ItemType = {
@@ -17,12 +20,36 @@ const ProductPage = () => {
             '/images/image-product-4.jpg'
         ]
     };
-
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+  
     return (
+    <>
         <div style={{display: 'flex', justifyContent: 'space-around', marginTop: '1rem'}}>
-            <ItemPhotoGallery images={item.images} />
+            <div style={{width: '40%', minWidth: '300px'}}>
+                <ItemPhotoGallery modal={false} images={item.images} modalAction={handleOpen} />
+            </div>
             <ProductCard product={item} />
         </div>
+        <Modal
+            open={open}
+            onClose={handleClose}
+            disableAutoFocus={true}
+        >
+            <Box sx={{
+                width: '80%',
+                maxWidth: '600px',
+                minWidth: '300px',
+                position: 'absolute',
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+                }}>
+                <ItemPhotoGallery modal={true} images={item.images} modalAction={handleClose} />
+            </Box>
+        </Modal>
+    </>
     );
 };
 

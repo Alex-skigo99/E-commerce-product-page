@@ -14,10 +14,8 @@ const ProductCard = (props: ItemProps):ReactElement => {
     const valueContext = useContext(CartContext);
     if (!valueContext) {
         throw new Error('ChildComponent must be used within a MyProvider');
-      }
+    }
     const {cart, setCart} = valueContext;
-    console.log('cart-', cart); //-------------------------------
-    console.log('setCart-', setCart); //-------------------------------
     const actualPrice = product.price * (1 - product.discount);
 
     const handleAddToCart = () => {
@@ -39,14 +37,15 @@ const ProductCard = (props: ItemProps):ReactElement => {
                 {
                     item: product,
                     price: actualPrice,
-                    quantity: 1
+                    quantity: count
                 }
             ]);
         }
+        setCount(1);
     };
 
     return (
-        <div style={{width: '40%'}}>
+        <div style={{width: '40%', minWidth: '300px'}}>
             <h5 className="color-primary">{product.manufacturer}</h5>
             <h1>{product.name}</h1>
             <p className="color-secondary">{product.description}</p>
@@ -56,7 +55,7 @@ const ProductCard = (props: ItemProps):ReactElement => {
             </div>
             <h4 className="full_price">${product.price.toFixed(2)}</h4>
             <div style={{display: 'flex', alignItems: 'center', marginTop: '50px'}}>
-                <Counter onChange={(count) => {setCount(count)}}/>
+                <Counter count={count} onChange={(newCount) => {setCount(newCount)}}/>
                 <MyButton image="/images/icon-cart-w.svg" title="Add to cart" width="200px" onClick={handleAddToCart} />
             </div>
         </div>

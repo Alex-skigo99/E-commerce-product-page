@@ -1,9 +1,11 @@
-import * as React from 'react';
+import React, { useContext } from 'react';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import logo from '/images/logo.svg';
 import ProductPage from '../product_page/ProductPage';
+import Badge from '@mui/material/Badge';
+import { CartContext } from '../App';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -43,6 +45,15 @@ function a11yProps(index: number) {
 
 export default function Navbar() {
   const [value, setValue] = React.useState(0);
+  const valueContext = useContext(CartContext);
+  if (!valueContext) {
+      throw new Error('ChildComponent must be used within a MyProvider');
+  }
+  const {cart} = valueContext;
+  let quantity = 0;
+  if (cart.length !== 0) {
+    quantity = cart.reduce((acc, item) => acc + item.quantity, 0);
+  } 
 
   const handleChange = (_event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -83,8 +94,10 @@ export default function Navbar() {
                 margin: '0 15px'
             }
         }>
+          <Badge badgeContent={quantity} color="primary">
             <img className='pointer' src='/images/icon-cart.svg'  alt='cart' />
-            <img className='round pointer border-hover' style={{scale: '0.5'}} src='/images/image-avatar.png'  alt='avatar' />
+          </Badge>
+          <img className='round pointer border-hover' style={{scale: '0.5'}} src='/images/image-avatar.png'  alt='avatar' />
         </Box>
       </Box>
       <CustomTabPanel value={value} index={0}>
