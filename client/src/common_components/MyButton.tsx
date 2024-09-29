@@ -1,7 +1,7 @@
 import './myButton.css';
 
 interface MyButtonProps {
-    image: string;
+    image?: string;
     title: string;
     width?: string;
     onClick: () => void;
@@ -13,7 +13,7 @@ const MyButton = (props: MyButtonProps) => {
     };
     return (
         <button className='myButton' style={styleButton} onClick={onClick}>
-            <img src={image} alt='image' style={{marginRight: '20px'}} />
+            {image && <img src={image} alt='image' style={{marginRight: '20px'}} />}
             {title}
         </button>
     );

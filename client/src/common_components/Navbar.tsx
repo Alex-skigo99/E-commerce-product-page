@@ -6,6 +6,7 @@ import logo from '/images/logo.svg';
 import ProductPage from '../product_page/ProductPage';
 import Badge from '@mui/material/Badge';
 import { CartContext } from '../App';
+import BasketCard from '../product_page/BasketCard';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -45,6 +46,7 @@ function a11yProps(index: number) {
 
 export default function Navbar() {
   const [value, setValue] = React.useState(0);
+  const [showCart, setShowCart] = React.useState(false); 
   const valueContext = useContext(CartContext);
   if (!valueContext) {
       throw new Error('ChildComponent must be used within a MyProvider');
@@ -95,7 +97,7 @@ export default function Navbar() {
             }
         }>
           <Badge badgeContent={quantity} color="primary">
-            <img className='pointer' src='/images/icon-cart.svg'  alt='cart' />
+            <img className='pointer' src='/images/icon-cart.svg'  alt='cart' onClick={() => setShowCart(true)} />
           </Badge>
           <img className='round pointer border-hover' style={{scale: '0.5'}} src='/images/image-avatar.png'  alt='avatar' />
         </Box>
@@ -109,6 +111,7 @@ export default function Navbar() {
       <CustomTabPanel value={value} index={2}>
         Item Three
       </CustomTabPanel>
+      {showCart && <BasketCard action={() => setShowCart(false)}/>}
     </>
   );
 }
