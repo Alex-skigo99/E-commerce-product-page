@@ -7,6 +7,8 @@ import ProductPage from '../product_page/ProductPage';
 import Badge from '@mui/material/Badge';
 import { CartContext } from '../App';
 import BasketCard from '../product_page/BasketCard';
+import Drawer from '@mui/material/Drawer';
+import { PRIMARY_COLOR, SECONDARY_COLOR } from '../App';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -56,10 +58,47 @@ export default function Navbar() {
   if (cart.length !== 0) {
     quantity = cart.reduce((acc, item) => acc + item.quantity, 0);
   } 
+  const [openMenu, setOpenMenu] = React.useState(false); // for mobile menu control
+  const toggleDrawer = (newOpen: boolean) => () => {
+    setOpenMenu(newOpen);
+  };
 
   const handleChange = (_event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
+
+  function mobileManuItemProp(index: number) {
+    const colorItem = (index === value) ? PRIMARY_COLOR : SECONDARY_COLOR;
+    return {
+      id: `menu-${index}`,
+      style: {color: colorItem, cursor: 'pointer'},
+      onClick: () => {setValue(index); setOpenMenu(false); }
+    }
+  };
+
+  const DrawerList = (
+    <Box
+      sx={{ width: 200 }}
+      role="presentation"
+      // onClick={toggleDrawer(false)}
+    >
+      <img className='mobile-close-btn' src='/images/icon-close.svg'  alt='close' onClick={toggleDrawer(false)} />
+      <div style={{
+            marginTop: '20px',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}
+      >
+          <h3 {...mobileManuItemProp(0)}>Collections</h3>
+          <h3{...mobileManuItemProp(1)}>Men</h3>
+          <h3{...mobileManuItemProp(2)}>Women</h3>
+          <h3{...mobileManuItemProp(3)}>About</h3>
+          <h3{...mobileManuItemProp(4)}>Contact</h3>
+      </div>
+    </Box>
+  );
 
   return (
     <>
@@ -72,10 +111,11 @@ export default function Navbar() {
         borderBottom: 1,
         borderColor: 'divider' 
         }}>
-        <Box sx={{
-            display: 'flex',
-            alignItems: 'center',
-            }}>
+        <Box className='mobile' >
+            <img className='pointer' src='/images/icon-menu.svg'  alt='menu' onClick={toggleDrawer(true)} />
+            <Logo />
+        </Box>
+        <Box className='desktop' >
             <Logo />
             <Tabs value={value} 
                 onChange={handleChange}
@@ -111,7 +151,12 @@ export default function Navbar() {
       <CustomTabPanel value={value} index={2}>
         Item Three
       </CustomTabPanel>
+
       {showCart && <BasketCard action={() => setShowCart(false)}/>}
+
+      <Drawer open={openMenu} onClose={toggleDrawer(false)}>
+        {DrawerList}
+      </Drawer>
     </>
   );
 }

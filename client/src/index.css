@@ -87,11 +87,10 @@ body {
   background-position: center;
 }
 
-.arrow-prev {
+.arrow {
   position: static;
   top: 50%;
   left: 0;
-  transform: translateX(-1.5rem);
   width: 3rem;
   height: 3rem;
   border-radius: 50%;
@@ -102,11 +101,10 @@ body {
   background-color: white;
 }
 
-.arrow-next {
+.arrow-modal {
   position: static;
   top: 50%;
-  right: 0;
-  transform: translateX(1.5rem);
+  left: 0;
   width: 3rem;
   height: 3rem;
   border-radius: 50%;
@@ -115,6 +113,22 @@ body {
   align-items: center;
   cursor: pointer;
   background-color: white;
+}
+
+.prev {
+  transform: translateX(1rem);
+}
+
+.next {
+  transform: translateX(-1rem);
+}
+
+.prev-modal {
+  transform: translateX(-1.5rem);
+}
+
+.next-modal {
+  transform: translateX(1.5rem);
 }
 
 .actual_price {
@@ -133,4 +147,56 @@ body {
   text-decoration: line-through;
   color: #787878;
   margin-top: 0;
+}
+
+.mobile-close-btn {
+  padding: 20px;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 767px) {
+  .product-page {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .product-page>div {
+    width: 100%;
+  }
+
+  .desktop {
+    display: none;
+  }
+
+  .mobile {
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .product-page {
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 1rem;
+  }
+
+  .product-page>div {
+    width: 40%;
+    min-width: 300px;
+  }
+
+  .desktop {
+    display: flex;
+    align-items: center;
+  }
+
+  .mobile {
+    display: none;
+  }
+
+  .arrow {
+    display: none;
+  }
 }

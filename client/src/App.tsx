@@ -4,13 +4,16 @@ import Navbar from './common_components/Navbar'
 import { useState, createContext, useEffect } from 'react'
 import { CartContextType, CartItemType } from './types';
 
+export const PRIMARY_COLOR = '#e86304';
+export const SECONDARY_COLOR = '#838181';
+
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#e86304',
+      main: PRIMARY_COLOR,
     },
     secondary: {
-      main: '#E0C2FF',
+      main: SECONDARY_COLOR,
     },
   },
 });

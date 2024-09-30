@@ -26,11 +26,13 @@ const ProductPage = () => {
   
     return (
     <>
-        <div style={{display: 'flex', justifyContent: 'space-around', marginTop: '1rem'}}>
-            <div style={{width: '40%', minWidth: '300px'}}>
+        <div className='product-page' style={{display: 'flex', justifyContent: 'space-around', marginTop: '1rem'}}>
+            <div>
                 <ItemPhotoGallery modal={false} images={item.images} modalAction={handleOpen} />
             </div>
-            <ProductCard product={item} />
+            <div>
+                <ProductCard product={item} />
+            </div>
         </div>
         <Modal
             open={open}

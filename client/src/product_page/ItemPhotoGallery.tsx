@@ -24,19 +24,33 @@ const ItemPhotoGallery = ({ modal, images, modalAction }: galleryProps) => {
             {...(modal && { style: { backgroundImage: `url(${images[currentImage]})`, cursor: 'zoom-in', height: '70vh'} })}
             onClick={handleClick}
             >
-                {modal && 
+                {modal ? 
                 <>
-                    <div className="arrow-prev"
+                    <div className="arrow-modal prev-modal"
                     onClick={() => setCurrentImage((currentImage - 1 + images.length) % images.length)}
                     >
                         <img src="/images/icon-previous.svg" alt="previous" />
                     </div>
-                    <div className="arrow-next"
+                    <div className="arrow-modal next-modal"
                     onClick={() => setCurrentImage((currentImage + 1) % images.length)}
                     >
                         <img src="/images/icon-next.svg" alt="next" />
                     </div>
-                </>}
+                </>
+                :
+                <>
+                    <div className="arrow prev"
+                    onClick={() => setCurrentImage((currentImage - 1 + images.length) % images.length)}
+                    >
+                        <img src="/images/icon-previous.svg" alt="previous" />
+                    </div>
+                    <div className="arrow next"
+                    onClick={() => setCurrentImage((currentImage + 1) % images.length)}
+                    >
+                        <img src="/images/icon-next.svg" alt="next" />
+                    </div>
+                </>
+                }
             </div>
             <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', margin: '2rem 0' }}>
                 {images.map((image, index) => (

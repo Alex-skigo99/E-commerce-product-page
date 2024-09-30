@@ -45,7 +45,7 @@ const ProductCard = (props: ItemProps):ReactElement => {
     };
 
     return (
-        <div style={{width: '40%', minWidth: '300px'}}>
+        <>
             <h5 className="color-primary">{product.manufacturer}</h5>
             <h1>{product.name}</h1>
             <p className="color-secondary">{product.description}</p>
@@ -58,7 +58,7 @@ const ProductCard = (props: ItemProps):ReactElement => {
                 <Counter count={count} onChange={(newCount) => {setCount(newCount)}}/>
                 <MyButton image="/images/icon-cart-w.svg" title="Add to cart" width="200px" onClick={handleAddToCart} />
             </div>
-        </div>
+        </>
     );
 };
 
