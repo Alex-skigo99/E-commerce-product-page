@@ -1,0 +1,65 @@
+import { ReactElement, useContext, useState } from "react";
+import { ItemType } from "../types";
+import { CartContext } from "../App";
+import MyButton from "../common_components/MyButton";
+import Counter from "../common_components/Counter";
+
+export interface ItemProps {
+    product: ItemType; 
+};
+
+const ProductCard = (props: ItemProps):ReactElement => {
+    const { product } = props;
+    const [count, setCount] = useState(1);
+    const valueContext = useContext(CartContext);
+    if (!valueContext) {
+        throw new Error('ChildComponent must be used within a MyProvider');
+    }
+    const {cart, setCart} = valueContext;
+    const actualPrice = product.price * (1 - product.discount);
+
+    const handleAddToCart = () => {
+        const itemInCart = cart.find(item => item.item.id === product.id);
+        if (itemInCart) {
+            setCart(cart.map(item => {
+                if (item.item.id === product.id) {
+                    return {
+                        ...item,
+                        quantity: item.quantity + count
+                    };
+                } else {
+                    return item;
+                }
+            }));
+        } else {
+            setCart([
+                ...cart,
+                {
+                    item: product,
+                    price: actualPrice,
+                    quantity: count
+                }
+            ]);
+        }
+        setCount(1);
+    };
+
+    return (
+        <>
+            <h5 className="color-primary">{product.manufacturer}</h5>
+            <h1>{product.name}</h1>
+            <p className="color-secondary">{product.description}</p>
+            <div style={{display: 'flex', alignItems: 'center'}}>
+                <h2 className="actual_price">${actualPrice.toFixed(2)}</h2>
+                <h4 className="discount">{product.discount * 100}%</h4>
+            </div>
+            <h4 className="full_price">${product.price.toFixed(2)}</h4>
+            <div style={{display: 'flex', alignItems: 'center', marginTop: '50px'}}>
+                <Counter count={count} onChange={(newCount) => {setCount(newCount)}}/>
+                <MyButton image="/images/icon-cart-w.svg" title="Add to cart" width="200px" onClick={handleAddToCart} />
+            </div>
+        </>
+    );
+};
+
+export default ProductCard;
